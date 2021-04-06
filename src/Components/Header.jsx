@@ -1,7 +1,7 @@
 import React from "react";
 
 function Header(props) {
-  return <header>NC News</header>;
+  return <header className="Header">NC News</header>;
 }
 
 export default Header;
