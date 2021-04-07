@@ -18,6 +18,12 @@ export const fetchTopics = () => {
 
 export const fetchArticle = (articleId) => {
   return request.get(`/articles/${articleId}`).then((res) => {
-    return res.data;
+    return res.data.article[0];
+  });
+};
+
+export const fetchComments = (articleId) => {
+  return request.get(`/articles/${articleId}/comments`).then((res) => {
+    return res.data.comments;
   });
 };

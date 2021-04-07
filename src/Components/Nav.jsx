@@ -13,7 +13,8 @@ class Nav extends Component {
     });
   }
   render() {
-    if (this.state.isLoading) return <p>Loading...</p>;
+    const { isLoading, topics } = this.state;
+    if (isLoading) return <p>Loading...</p>;
     else
       return (
         <nav>
@@ -21,7 +22,7 @@ class Nav extends Component {
             <li>
               <Link to="/">All topics</Link>
             </li>
-            {this.state.topics.map((topic) => {
+            {topics.map((topic) => {
               return (
                 <li>
                   <Link to={`/${topic.slug}`}>{topic.slug}</Link>

@@ -9,25 +9,28 @@ class ArticleList extends Component {
   };
 
   componentDidMount() {
-    fetchArticles(this.props.topic).then((articles) => {
+    const { topic } = this.props;
+    fetchArticles(topic).then((articles) => {
       this.setState({ articles, isLoading: false });
     });
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps !== this.props) {
-      fetchArticles(this.props.topic).then((articles) => {
+      const { topic } = this.props;
+      fetchArticles(topic).then((articles) => {
         this.setState({ articles, isLoading: false });
       });
     }
   }
 
   render() {
-    if (this.state.isLoading) return <p>Loading</p>;
+    const { articles, isLoading } = this.state;
+    if (isLoading) return <p>Loading</p>;
     else
       return (
         <ul className="ArticleList">
-          {this.state.articles.map((article) => {
+          {articles.map((article) => {
             return (
               <li key={article.id} className="ArticleCard">
                 <h2>
