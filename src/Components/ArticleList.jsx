@@ -1,17 +1,50 @@
 import React, { Component } from "react";
+import { Link } from "@reach/router";
+import { fetchArticles } from "../api";
 
 class ArticleList extends Component {
   state = {
-    articles: ["article1", "article2", "article3"],
+    articles: [],
+    isLoading: true,
   };
+
+  componentDidMount() {
+    fetchArticles(this.props.topic).then((articles) => {
+      this.setState({ articles, isLoading: false });
+    });
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps !== this.props) {
+      fetchArticles(this.props.topic).then((articles) => {
+        this.setState({ articles, isLoading: false });
+      });
+    }
+  }
+
   render() {
-    return (
-      <ul>
-        {this.state.articles.map((article) => {
-          return <li>{article}</li>;
-        })}
-      </ul>
-    );
+    if (this.state.isLoading) return <p>Loading</p>;
+    else
+      return (
+        <ul className="ArticleList">
+          {this.state.articles.map((article) => {
+            return (
+              <li key={article.id} className="ArticleCard">
+                <h2>
+                  <Link to={`/articles/${article.article_id}`}>
+                    {article.title}
+                  </Link>
+                </h2>
+                <p>{article.body}</p>
+                <p>Posted by: {article.author}</p>
+                <p>Votes: {article.votes}</p>
+                <p>Comments: {article.comment_count}</p>
+                <p>Posted: {new Date(article.created_at).toString()}</p>
+              </li>
+            );
+          })}
+        </ul>
+      );
   }
 }
 
