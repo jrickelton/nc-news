@@ -9,7 +9,7 @@ class Content extends Component {
       <main className="Content">
         <Router primary={false}>
           <ArticleList path="/" />
-          <ArticleList path="/:topic" />
+          <ArticleList path="/:topic" sortBy="created_at" />
           <FullArticle path="/articles/:article_id" />
         </Router>
       </main>

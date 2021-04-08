@@ -1,13 +1,14 @@
 import axios from "axios";
-
 const request = axios.create({
   baseURL: "https://jrickelton-nc-news-app.herokuapp.com/api",
 });
 
-export const fetchArticles = (topic) => {
-  return request.get("/articles", { params: { topic } }).then((res) => {
-    return res.data.articles;
-  });
+export const fetchArticles = (topic, sortBy) => {
+  return request
+    .get("/articles", { params: { topic: topic, sort_by: sortBy } })
+    .then((res) => {
+      return res.data.articles;
+    });
 };
 
 export const fetchTopics = () => {
