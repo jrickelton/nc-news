@@ -20,3 +20,12 @@
 .Content {
   grid-area: content;
 }
+
+.CommentForm {
+  width: 100%;
+}
+
+.CommentForm input {
+  height: 2em;
+  width: 90%;
+}

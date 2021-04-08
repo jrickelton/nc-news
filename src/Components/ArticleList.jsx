@@ -27,7 +27,6 @@ class ArticleList extends Component {
   }
 
   render() {
-    console.log(this.state.sortBy);
     const { articles, isLoading } = this.state;
     if (isLoading) return <p>Loading</p>;
     else
@@ -66,7 +65,7 @@ class ArticleList extends Component {
           <ul className="ArticleList">
             {articles.map((article) => {
               return (
-                <li key={article.id} className="ArticleCard">
+                <li key={article.article_id} className="ArticleCard">
                   <h2>
                     <Link to={`/articles/${article.article_id}`}>
                       {article.title}

@@ -1,17 +1,37 @@
 import React, { Component } from "react";
-import { fetchArticle } from "../api";
 import Comments from "./Comments.jsx";
+import CommentForm from "./CommentForm";
+import * as api from "../api";
 
 class FullArticle extends Component {
-  state = { article: {}, isLoading: true };
+  state = { article: {}, isLoading: true, comments: [] };
+
   componentDidMount() {
     const { article_id } = this.props;
-    fetchArticle(article_id).then((article) => {
-      this.setState({ article, isLoading: false });
-    });
+    Promise.all([
+      api.fetchArticle(article_id),
+      api.fetchComments(article_id),
+    ]).then((data) =>
+      this.setState({ article: data[0], comments: data[1], isLoading: false })
+    );
   }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.comments !== prevState.comments) {
+      // console.log(this.state);
+    }
+  }
+
+  updateComments = (newComment) => {
+    this.setState((currState) => {
+      return {
+        comments: [newComment, ...currState.comments],
+      };
+    });
+  };
+
   render() {
-    const { article, isLoading } = this.state;
+    const { article, isLoading, comments } = this.state;
     const {
       title,
       body,
@@ -33,7 +53,12 @@ class FullArticle extends Component {
             <p>Comments: {comment_count}</p>
             <p>Posted: {new Date(created_at).toString()}</p>
           </div>
-          <Comments articleId={article_id} />
+          <CommentForm
+            articleId={article_id}
+            postComment={api.postComment}
+            updateComments={this.updateComments}
+          />
+          <Comments articleId={article_id} comments={comments} />
         </main>
       );
   }

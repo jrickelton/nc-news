@@ -28,3 +28,14 @@ export const fetchComments = (articleId) => {
     return res.data.comments;
   });
 };
+
+export const postComment = (articleId, commentBody, username) => {
+  return request
+    .post(`articles/${articleId}/comments`, {
+      body: commentBody,
+      username: username,
+    })
+    .then((res) => {
+      return res.data.comment[0];
+    });
+};
