@@ -12,7 +12,7 @@ class CommentForm extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
     this.props
-      .postComment(this.props.articleId, this.state.body, this.state.username)
+      .postComment(this.props.articleId, this.state.body, this.props.username)
       .then((newComment) => {
         this.props.updateComments(newComment);
       });

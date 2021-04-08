@@ -4,7 +4,13 @@ import CommentForm from "./CommentForm";
 import * as api from "../api";
 
 class FullArticle extends Component {
-  state = { article: {}, isLoading: true, comments: [] };
+  state = {
+    article: {},
+    isLoading: true,
+    comments: [],
+    username: "jessjelly",
+    deletedCommentIds: [0],
+  };
 
   componentDidMount() {
     const { article_id } = this.props;
@@ -16,12 +22,6 @@ class FullArticle extends Component {
     );
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (this.state.comments !== prevState.comments) {
-      // console.log(this.state);
-    }
-  }
-
   updateComments = (newComment) => {
     this.setState((currState) => {
       return {
@@ -30,8 +30,15 @@ class FullArticle extends Component {
     });
   };
 
+  removeComment = (commentId) => {
+    this.setState((currState) => {
+      return { deletedCommentIds: [commentId, ...currState.deletedCommentIds] };
+    });
+    console.log(this.state.deletedCommentIds);
+  };
+
   render() {
-    const { article, isLoading, comments } = this.state;
+    const { article, isLoading, comments, username } = this.state;
     const {
       title,
       body,
@@ -55,10 +62,18 @@ class FullArticle extends Component {
           </div>
           <CommentForm
             articleId={article_id}
+            username={this.state.username}
             postComment={api.postComment}
             updateComments={this.updateComments}
           />
-          <Comments articleId={article_id} comments={comments} />
+          <Comments
+            articleId={article_id}
+            comments={comments}
+            username={username}
+            deleteComment={api.deleteComment}
+            removeComment={this.removeComment}
+            deletedCommentIds={this.state.deletedCommentIds}
+          />
         </main>
       );
   }
