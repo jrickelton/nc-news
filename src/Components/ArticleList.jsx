@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "@reach/router";
-import { fetchArticles } from "../api";
+import * as api from "../api";
 
 class ArticleList extends Component {
   state = {
@@ -11,7 +11,7 @@ class ArticleList extends Component {
 
   componentDidMount() {
     const { topic } = this.props;
-    fetchArticles(topic).then((articles) => {
+    api.fetchArticles(topic).then((articles) => {
       this.setState({ articles, isLoading: false });
     });
   }
@@ -20,7 +20,7 @@ class ArticleList extends Component {
     if (prevProps !== this.props || prevState.sortBy !== this.state.sortBy) {
       const { topic } = this.props;
       const { sortBy } = this.state;
-      fetchArticles(topic, sortBy).then((articles) => {
+      api.fetchArticles(topic, sortBy).then((articles) => {
         this.setState({ articles, isLoading: false });
       });
     }

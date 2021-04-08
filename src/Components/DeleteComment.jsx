@@ -1,9 +1,10 @@
 import React from "react";
+import * as api from "../api";
 
 const DeleteComment = (props) => {
-  const { author, username, deleteComment, commentId } = props;
+  const { author, username, commentId } = props;
   const handleClick = (event) => {
-    deleteComment(commentId).then((commentId) => {
+    api.deleteComment(commentId).then((commentId) => {
       props.removeComment(commentId);
     });
   };

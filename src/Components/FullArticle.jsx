@@ -9,7 +9,7 @@ class FullArticle extends Component {
     isLoading: true,
     comments: [],
     username: "jessjelly",
-    deletedCommentIds: [0],
+    deletedCommentIds: [],
   };
 
   componentDidMount() {
@@ -34,11 +34,16 @@ class FullArticle extends Component {
     this.setState((currState) => {
       return { deletedCommentIds: [commentId, ...currState.deletedCommentIds] };
     });
-    console.log(this.state.deletedCommentIds);
   };
 
   render() {
-    const { article, isLoading, comments, username } = this.state;
+    const {
+      article,
+      isLoading,
+      comments,
+      username,
+      deletedCommentIds,
+    } = this.state;
     const {
       title,
       body,
@@ -62,7 +67,7 @@ class FullArticle extends Component {
           </div>
           <CommentForm
             articleId={article_id}
-            username={this.state.username}
+            username={username}
             postComment={api.postComment}
             updateComments={this.updateComments}
           />
@@ -70,9 +75,8 @@ class FullArticle extends Component {
             articleId={article_id}
             comments={comments}
             username={username}
-            deleteComment={api.deleteComment}
             removeComment={this.removeComment}
-            deletedCommentIds={this.state.deletedCommentIds}
+            deletedCommentIds={deletedCommentIds}
           />
         </main>
       );

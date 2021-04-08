@@ -6,7 +6,7 @@ function Comments(props) {
   if (comments.length === 0) {
     return <p>No comments</p>;
   }
-  console.log(props);
+
   return (
     <div className="Comments">
       <h3>Comments</h3>

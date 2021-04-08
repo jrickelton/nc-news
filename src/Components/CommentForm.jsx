@@ -3,20 +3,21 @@ import React, { Component } from "react";
 class CommentForm extends Component {
   state = {
     body: "",
-    username: "jessjelly",
   };
 
   handleChange = (event) => {
     this.setState({ body: event.target.value });
   };
+
   handleSubmit = (event) => {
+    const { articleId, username, postComment, updateComments } = this.props;
+    const { body } = this.state;
     event.preventDefault();
-    this.props
-      .postComment(this.props.articleId, this.state.body, this.props.username)
-      .then((newComment) => {
-        this.props.updateComments(newComment);
-      });
+    postComment(articleId, body, username).then((newComment) => {
+      updateComments(newComment);
+    });
   };
+
   render() {
     return (
       <form className="CommentForm" onSubmit={this.handleSubmit}>
