@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "@reach/router";
 import Comments from "./Comments.jsx";
 import CommentForm from "./CommentForm";
 import Votes from "./Votes";
@@ -84,7 +85,9 @@ class FullArticle extends Component {
           <div className="Article">
             <h2>{title}</h2>
             <p>{body}</p>
-            <p>Posted by: {author}</p>
+            <p>
+              Posted by: <Link to={`/users/${author}`}>{author}</Link>
+            </p>
             <p>Comments: {comment_count}</p>
             <p>Posted: {new Date(created_at).toString()}</p>
           </div>

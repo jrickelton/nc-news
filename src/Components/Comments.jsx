@@ -1,6 +1,7 @@
 import React from "react";
 import DeleteComment from "./DeleteComment";
 import Votes from "./Votes";
+import { Link } from "@reach/router";
 
 function Comments(props) {
   const { comments, username, deleteComment, removeComment } = props;
@@ -18,7 +19,9 @@ function Comments(props) {
             return (
               <li key={comment.comment_id}>
                 <p>{comment.body}</p>
-                <p>{comment.author}</p>
+                <Link to={`/users/${comment.author}`}>
+                  <p>{comment.author}</p>
+                </Link>
 
                 <p>Posted: {new Date(comment.created_at).toString()}</p>
                 <DeleteComment

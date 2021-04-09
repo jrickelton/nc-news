@@ -7,13 +7,14 @@ class ArticleList extends Component {
   state = {
     articles: [],
     isLoading: true,
-    sortBy: "",
+    sortBy: "created_at",
     sortByString: "Most Recent",
   };
 
   componentDidMount() {
-    const { topic } = this.props;
-    api.fetchArticles(topic).then((articles) => {
+    const { topic, username } = this.props;
+    const { sortBy } = this.state;
+    api.fetchArticles(topic, sortBy, username).then((articles) => {
       this.setState({ articles, isLoading: false });
     });
   }
@@ -37,11 +38,18 @@ class ArticleList extends Component {
   render() {
     const { articles, isLoading, sortByString } = this.state;
     const { topic } = this.props;
+    const { username } = this.props;
     if (isLoading) return <p>Loading</p>;
     else
       return (
         <div className="articleList">
-          {topic ? <h2>{topic}</h2> : <h2>All Articles</h2>}
+          {topic ? (
+            <h2>{topic}</h2>
+          ) : username ? (
+            <h2>Posted By {username}</h2>
+          ) : (
+            <h2>All Articles</h2>
+          )}
           <SortBy
             sortByString={sortByString}
             setOrder={this.setOrder}
@@ -61,7 +69,12 @@ class ArticleList extends Component {
                     </Link>
                   </h2>
                   <p>{article.body}</p>
-                  <p>Posted by: {article.author}</p>
+                  <p>
+                    Posted by:{" "}
+                    <Link to={`/users/${article.author}`}>
+                      {article.author}
+                    </Link>
+                  </p>
                   <p>Votes: {article.votes}</p>
                   <p>Comments: {article.comment_count}</p>
                   <p>Posted: {new Date(article.created_at).toString()}</p>

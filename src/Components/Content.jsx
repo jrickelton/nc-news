@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Router } from "@reach/router";
 import ArticleList from "./ArticleList";
 import FullArticle from "./FullArticle";
+import Profile from "./Profile";
 
 class Content extends Component {
   render() {
@@ -14,6 +15,7 @@ class Content extends Component {
             username={this.props.username}
             path="/articles/:article_id"
           />
+          <Profile path="/users/:username" />
         </Router>
       </main>
     );

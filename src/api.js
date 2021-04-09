@@ -3,9 +3,11 @@ const request = axios.create({
   baseURL: "https://jrickelton-nc-news-app.herokuapp.com/api",
 });
 
-export const fetchArticles = (topic, sortBy) => {
+export const fetchArticles = (topic, sortBy, username) => {
   return request
-    .get("/articles", { params: { topic: topic, sort_by: sortBy } })
+    .get("/articles", {
+      params: { topic: topic, sort_by: sortBy, author: username },
+    })
     .then((res) => {
       return res.data.articles;
     });
@@ -62,4 +64,10 @@ export const patchCommentVotes = (commentId, vote) => {
     .then((res) => {
       return res.data;
     });
+};
+
+export const fetchUser = (username) => {
+  return request.get(`users/${username}`).then((res) => {
+    return res.data.user[0];
+  });
 };
