@@ -4,6 +4,7 @@ import Comments from "./Comments.jsx";
 import CommentForm from "./CommentForm";
 import Votes from "./Votes";
 import SortBy from "./SortBy";
+import ErrorPage from "./ErrorPage";
 import * as api from "../api";
 
 class FullArticle extends Component {
@@ -15,30 +16,38 @@ class FullArticle extends Component {
     deletedCommentIds: [],
     commentSortBy: "",
     commentSortByString: "Date",
+    err: "",
   };
 
   componentDidMount() {
     const { article_id, username } = this.props;
-    Promise.all([
-      api.fetchArticle(article_id),
-      api.fetchComments(article_id),
-    ]).then((data) =>
-      this.setState({
-        article: data[0],
-        comments: data[1],
-        username: username,
-        isLoading: false,
-      })
-    );
+    Promise.all([api.fetchArticle(article_id), api.fetchComments(article_id)])
+      .then((data) =>
+        this.setState({
+          article: data[0],
+          comments: data[1],
+          username: username,
+          isLoading: false,
+        })
+      )
+      .catch((err) => {
+        this.setState({ err, isLoading: false });
+        console.log(err);
+      });
   }
 
   componentDidUpdate(prevProps, prevState) {
     const { commentSortBy } = this.state;
     const { article_id } = this.props;
     if (this.state.commentSortBy !== prevState.commentSortBy) {
-      api.fetchComments(article_id, commentSortBy).then((comments) => {
-        this.setState({ comments });
-      });
+      api
+        .fetchComments(article_id, commentSortBy)
+        .then((comments) => {
+          this.setState({ comments });
+        })
+        .catch((err) => {
+          this.setState({ err });
+        });
     }
   }
 
@@ -68,6 +77,7 @@ class FullArticle extends Component {
       comments,
       username,
       deletedCommentIds,
+      err,
     } = this.state;
     const {
       title,
@@ -79,6 +89,7 @@ class FullArticle extends Component {
       article_id,
     } = article;
     if (isLoading) return <p>Loading...</p>;
+    if (err) return <ErrorPage err={err} />;
     else
       return (
         <main>
@@ -100,7 +111,6 @@ class FullArticle extends Component {
           <CommentForm
             articleId={article_id}
             username={username}
-            postComment={api.postComment}
             updateComments={this.updateComments}
           />
           <h3>Comments</h3>

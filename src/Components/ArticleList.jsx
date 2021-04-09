@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from "@reach/router";
 import * as api from "../api";
 import SortBy from "./SortBy";
+import ErrorPage from "./ErrorPage";
 
 class ArticleList extends Component {
   state = {
@@ -9,36 +10,58 @@ class ArticleList extends Component {
     isLoading: true,
     sortBy: "created_at",
     sortByString: "Most Recent",
+    order: "desc",
+    err: "",
   };
 
   componentDidMount() {
     const { topic, username } = this.props;
-    const { sortBy } = this.state;
-    api.fetchArticles(topic, sortBy, username).then((articles) => {
-      this.setState({ articles, isLoading: false });
-    });
+    const { sortBy, order } = this.state;
+    api
+      .fetchArticles(topic, sortBy, order, username)
+      .then((articles) => {
+        this.setState({ articles, isLoading: false });
+      })
+      .catch((err) => {
+        this.setState({ err });
+      });
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (prevProps !== this.props || prevState.sortBy !== this.state.sortBy) {
+    if (
+      prevProps.topic !== this.props.topic ||
+      prevProps.username !== this.props.username ||
+      prevState.sortBy !== this.state.sortBy ||
+      prevState.order !== this.state.order
+    ) {
       const { topic } = this.props;
-      const { sortBy } = this.state;
-      api.fetchArticles(topic, sortBy).then((articles) => {
-        this.setState({ articles, isLoading: false });
-      });
+      const { sortBy, order } = this.state;
+      api
+        .fetchArticles(topic, sortBy, order)
+        .then((articles) => {
+          this.setState({ articles, isLoading: false, err: "" });
+        })
+        .catch((err) => {
+          this.setState({ err, isLoading: false });
+        });
     }
   }
 
-  setOrder = (sortBy, event) => {
-    console.log(sortBy, this.state);
+  setSortBy = (sortBy, event) => {
     const string = event.target.innerHTML;
     this.setState({ sortBy, sortByString: string });
   };
 
+  setOrder = (order) => {
+    this.setState({ order });
+  };
+
   render() {
-    const { articles, isLoading, sortByString } = this.state;
+    const { articles, isLoading, sortByString, err } = this.state;
     const { topic } = this.props;
     const { username } = this.props;
+    console.log(err);
+    if (err) return <ErrorPage err={err} />;
     if (isLoading) return <p>Loading</p>;
     else
       return (
@@ -52,6 +75,7 @@ class ArticleList extends Component {
           )}
           <SortBy
             sortByString={sortByString}
+            setSortBy={this.setSortBy}
             setOrder={this.setOrder}
             options={[
               { query: "created_at", string: "Date" },

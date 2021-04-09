@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import * as api from "../api";
 import ArticleList from "./ArticleList";
+import ErrorPage from "./ErrorPage";
 
 class Profile extends Component {
   state = {
@@ -8,20 +9,27 @@ class Profile extends Component {
     avatar_url: "",
     name: "",
     isLoading: true,
+    err: "",
   };
 
   componentDidMount() {
     const { username } = this.props;
-    api.fetchUser(username).then((userdata) => {
-      const { username, avatar_url, name } = userdata;
-      console.log(username, avatar_url, name);
-      this.setState({ username, avatar_url, name, isLoading: false });
-    });
+    api
+      .fetchUser(username)
+      .then((userdata) => {
+        const { username, avatar_url, name } = userdata;
+        console.log(username, avatar_url, name);
+        this.setState({ username, avatar_url, name, isLoading: false });
+      })
+      .catch((err) => {
+        this.setState({ err });
+      });
   }
 
   render() {
-    const { username, avatar_url, name, isLoading } = this.state;
+    const { username, avatar_url, name, isLoading, err } = this.state;
     if (isLoading) return <p>Loading...</p>;
+    if (err) return <ErrorPage err={err} />;
     else
       return (
         <div>

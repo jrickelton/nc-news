@@ -3,10 +3,15 @@ const request = axios.create({
   baseURL: "https://jrickelton-nc-news-app.herokuapp.com/api",
 });
 
-export const fetchArticles = (topic, sortBy, username) => {
+export const fetchArticles = (topic, sortBy, order, username) => {
   return request
     .get("/articles", {
-      params: { topic: topic, sort_by: sortBy, author: username },
+      params: {
+        topic: topic,
+        sort_by: sortBy,
+        order_by: order,
+        author: username,
+      },
     })
     .then((res) => {
       return res.data.articles;

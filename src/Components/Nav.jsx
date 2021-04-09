@@ -8,13 +8,18 @@ class Nav extends Component {
     isLoading: true,
   };
   componentDidMount() {
-    fetchTopics().then((topics) => {
-      this.setState({ topics, isLoading: false });
-    });
+    fetchTopics()
+      .then((topics) => {
+        this.setState({ topics, isLoading: false });
+      })
+      .catch((err) => {
+        this.setState({ err });
+      });
   }
   render() {
-    const { isLoading, topics } = this.state;
+    const { isLoading, topics, err } = this.state;
     if (isLoading) return <p>Loading...</p>;
+    if (err) return <p>Error: {err}</p>;
     else
       return (
         <nav>

@@ -1,7 +1,7 @@
 import React from "react";
 
 const SortBy = (props) => {
-  const { sortByString, setOrder, options } = props;
+  const { sortByString, setSortBy, setOrder, options } = props;
   return (
     <ul>
       <li>Sorted By {sortByString}</li>
@@ -10,7 +10,7 @@ const SortBy = (props) => {
           <li key={option.string}>
             <button
               onClick={(event) => {
-                setOrder(option.query, event);
+                setSortBy(option.query, event);
               }}
             >
               {option.string}
@@ -18,6 +18,24 @@ const SortBy = (props) => {
           </li>
         );
       })}
+      <li>
+        <button
+          onClick={() => {
+            setOrder("asc");
+          }}
+        >
+          Ascending
+        </button>
+      </li>
+      <li>
+        <button
+          onClick={() => {
+            setOrder("desc");
+          }}
+        >
+          Descending
+        </button>
+      </li>
     </ul>
   );
 };

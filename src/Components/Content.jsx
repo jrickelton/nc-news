@@ -3,6 +3,7 @@ import { Router } from "@reach/router";
 import ArticleList from "./ArticleList";
 import FullArticle from "./FullArticle";
 import Profile from "./Profile";
+import ErrorPage from "./ErrorPage";
 
 class Content extends Component {
   render() {
@@ -10,12 +11,13 @@ class Content extends Component {
       <main className="Content">
         <Router primary={false}>
           <ArticleList path="/" />
-          <ArticleList path="/:topic" sortBy="created_at" />
           <FullArticle
             username={this.props.username}
             path="/articles/:article_id"
           />
+          <ArticleList path="/:topic" />
           <Profile path="/users/:username" />
+          <ErrorPage default />
         </Router>
       </main>
     );
