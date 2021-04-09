@@ -1,8 +1,9 @@
 import React from "react";
 import DeleteComment from "./DeleteComment";
+import Votes from "./Votes";
 
 function Comments(props) {
-  const { comments } = props;
+  const { comments, username, deleteComment, removeComment } = props;
   if (comments.length === 0) {
     return <p>No comments</p>;
   }
@@ -19,14 +20,20 @@ function Comments(props) {
               <li key={comment.comment_id}>
                 <p>{comment.body}</p>
                 <p>{comment.author}</p>
-                <p>Votes: {comment.votes}</p>
+
                 <p>Posted: {new Date(comment.created_at).toString()}</p>
                 <DeleteComment
                   author={comment.author}
-                  username={props.username}
-                  deleteComment={props.deleteComment}
+                  username={username}
+                  deleteComment={deleteComment}
                   commentId={comment.comment_id}
-                  removeComment={props.removeComment}
+                  removeComment={removeComment}
+                />
+                <Votes
+                  votes={comment.votes}
+                  commentId={comment.comment_id}
+                  username={username}
+                  author={comment.author}
                 />
               </li>
             );

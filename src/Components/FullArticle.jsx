@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Comments from "./Comments.jsx";
 import CommentForm from "./CommentForm";
+import Votes from "./Votes";
 import * as api from "../api";
 
 class FullArticle extends Component {
@@ -61,10 +62,15 @@ class FullArticle extends Component {
             <h2>{title}</h2>
             <p>{body}</p>
             <p>Posted by: {author}</p>
-            <p>Votes: {votes}</p>
             <p>Comments: {comment_count}</p>
             <p>Posted: {new Date(created_at).toString()}</p>
           </div>
+          <Votes
+            votes={votes}
+            articleId={article_id}
+            username={username}
+            author={author}
+          />
           <CommentForm
             articleId={article_id}
             username={username}

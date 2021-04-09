@@ -45,3 +45,19 @@ export const deleteComment = (commentId) => {
     return commentId;
   });
 };
+
+export const patchArticleVotes = (articleId, vote) => {
+  return request
+    .patch(`articles/${articleId}`, { inc_votes: vote })
+    .then((res) => {
+      return res.data;
+    });
+};
+
+export const patchCommentVotes = (commentId, vote) => {
+  return request
+    .patch(`comments/${commentId}`, { inc_votes: vote })
+    .then((res) => {
+      return res.data;
+    });
+};
