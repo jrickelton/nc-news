@@ -28,10 +28,13 @@ class ArticleList extends Component {
 
   render() {
     const { articles, isLoading } = this.state;
+    const { topic } = this.props;
+    console.log(topic);
     if (isLoading) return <p>Loading</p>;
     else
       return (
         <div className="articleList">
+          {topic ? <h2>{topic}</h2> : <h2>All Articles</h2>}
           <ul>
             <li>Sort By:</li>
             <li>

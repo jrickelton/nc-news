@@ -39,7 +39,6 @@ class Votes extends Component {
       return (
         <div>
           <button
-            id
             onClick={(event) => {
               this.handleClick(1, event);
             }}
