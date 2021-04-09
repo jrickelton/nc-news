@@ -8,8 +8,7 @@
 
 .Header {
   grid-area: header;
-  margin: 1em;
-  font-size: 4em;
+
   text-align: center;
 }
 

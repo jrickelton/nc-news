@@ -7,6 +7,7 @@ class ArticleList extends Component {
     articles: [],
     isLoading: true,
     sortBy: "",
+    sortByString: "Most Recent",
   };
 
   componentDidMount() {
@@ -27,20 +28,22 @@ class ArticleList extends Component {
   }
 
   render() {
-    const { articles, isLoading } = this.state;
+    const { articles, isLoading, sortByString } = this.state;
     const { topic } = this.props;
-    console.log(topic);
     if (isLoading) return <p>Loading</p>;
     else
       return (
         <div className="articleList">
           {topic ? <h2>{topic}</h2> : <h2>All Articles</h2>}
           <ul>
-            <li>Sort By:</li>
+            <li>Sorted By {sortByString}</li>
             <li>
               <button
                 onClick={() => {
-                  this.setState({ sortBy: "comment_count" });
+                  this.setState({
+                    sortBy: "comment_count",
+                    sortByString: "Most Comments",
+                  });
                 }}
               >
                 Most Comments
@@ -49,7 +52,10 @@ class ArticleList extends Component {
             <li>
               <button
                 onClick={() => {
-                  this.setState({ sortBy: "created_at" });
+                  this.setState({
+                    sortBy: "created_at",
+                    sortByString: "Most Recent",
+                  });
                 }}
               >
                 Most Recent
@@ -58,10 +64,13 @@ class ArticleList extends Component {
             <li>
               <button
                 onClick={() => {
-                  this.setState({ sortBy: "votes" });
+                  this.setState({
+                    sortBy: "votes",
+                    sortByString: "Most Votes",
+                  });
                 }}
               >
-                Votes
+                Most Votes
               </button>
             </li>
           </ul>
