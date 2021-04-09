@@ -42,7 +42,15 @@ class ArticleList extends Component {
       return (
         <div className="articleList">
           {topic ? <h2>{topic}</h2> : <h2>All Articles</h2>}
-          <SortBy sortByString={sortByString} setOrder={this.setOrder} />
+          <SortBy
+            sortByString={sortByString}
+            setOrder={this.setOrder}
+            options={[
+              { query: "created_at", string: "Date" },
+              { query: "votes", string: "Votes" },
+              { query: "comment_count", string: "Comment Count" },
+            ]}
+          />
           <ul className="ArticleList">
             {articles.map((article) => {
               return (

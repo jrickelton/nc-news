@@ -10,7 +10,6 @@ function Comments(props) {
 
   return (
     <div className="Comments">
-      <h3>Comments</h3>
       <ul>
         {comments.map((comment) => {
           if (props.deletedCommentIds.some((id) => id === comment.comment_id)) {

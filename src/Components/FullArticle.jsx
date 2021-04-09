@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Comments from "./Comments.jsx";
 import CommentForm from "./CommentForm";
 import Votes from "./Votes";
+import SortBy from "./SortBy";
 import * as api from "../api";
 
 class FullArticle extends Component {
@@ -11,6 +12,8 @@ class FullArticle extends Component {
     comments: [],
     username: "",
     deletedCommentIds: [],
+    commentSortBy: "",
+    commentSortByString: "Date",
   };
 
   componentDidMount() {
@@ -28,6 +31,16 @@ class FullArticle extends Component {
     );
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    const { commentSortBy } = this.state;
+    const { article_id } = this.props;
+    if (this.state.commentSortBy !== prevState.commentSortBy) {
+      api.fetchComments(article_id, commentSortBy).then((comments) => {
+        this.setState({ comments });
+      });
+    }
+  }
+
   updateComments = (newComment) => {
     this.setState((currState) => {
       return {
@@ -40,6 +53,11 @@ class FullArticle extends Component {
     this.setState((currState) => {
       return { deletedCommentIds: [commentId, ...currState.deletedCommentIds] };
     });
+  };
+
+  setOrder = (commentSortBy, event) => {
+    const string = event.target.innerHTML;
+    this.setState({ commentSortBy, commentSortByString: string });
   };
 
   render() {
@@ -81,6 +99,15 @@ class FullArticle extends Component {
             username={username}
             postComment={api.postComment}
             updateComments={this.updateComments}
+          />
+          <h3>Comments</h3>
+          <SortBy
+            sortByString={this.state.commentSortByString}
+            setOrder={this.setOrder}
+            options={[
+              { query: "created_at", string: "Date" },
+              { query: "votes", string: "Votes" },
+            ]}
           />
           <Comments
             articleId={article_id}

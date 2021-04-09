@@ -23,10 +23,12 @@ export const fetchArticle = (articleId) => {
   });
 };
 
-export const fetchComments = (articleId) => {
-  return request.get(`/articles/${articleId}/comments`).then((res) => {
-    return res.data.comments;
-  });
+export const fetchComments = (articleId, sortBy) => {
+  return request
+    .get(`/articles/${articleId}/comments`, { params: { sort_by: sortBy } })
+    .then((res) => {
+      return res.data.comments;
+    });
 };
 
 export const postComment = (articleId, commentBody, username) => {

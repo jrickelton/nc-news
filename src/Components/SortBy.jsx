@@ -1,37 +1,23 @@
 import React from "react";
 
 const SortBy = (props) => {
-  const { sortByString, setOrder } = props;
+  const { sortByString, setOrder, options } = props;
   return (
     <ul>
       <li>Sorted By {sortByString}</li>
-      <li>
-        <button
-          onClick={(event) => {
-            setOrder("comment_count", event);
-          }}
-        >
-          Comments
-        </button>
-      </li>
-      <li>
-        <button
-          onClick={(event) => {
-            setOrder("created_at", event);
-          }}
-        >
-          Date
-        </button>
-      </li>
-      <li>
-        <button
-          onClick={(event) => {
-            setOrder("votes", event);
-          }}
-        >
-          Votes
-        </button>
-      </li>
+      {options.map((option) => {
+        return (
+          <li key={option.string}>
+            <button
+              onClick={(event) => {
+                setOrder(option.query, event);
+              }}
+            >
+              {option.string}
+            </button>
+          </li>
+        );
+      })}
     </ul>
   );
 };
