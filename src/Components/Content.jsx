@@ -10,7 +10,10 @@ class Content extends Component {
         <Router primary={false}>
           <ArticleList path="/" />
           <ArticleList path="/:topic" sortBy="created_at" />
-          <FullArticle path="/articles/:article_id" />
+          <FullArticle
+            username={this.props.username}
+            path="/articles/:article_id"
+          />
         </Router>
       </main>
     );

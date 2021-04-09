@@ -4,7 +4,7 @@ function Header(props) {
   return (
     <header className="Header">
       <h1>📰 NC News</h1>
-      <p>Logged in as jessjelly</p>
+      <p>Logged in as {props.username}</p>
     </header>
   );
 }

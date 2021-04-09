@@ -9,17 +9,22 @@ class FullArticle extends Component {
     article: {},
     isLoading: true,
     comments: [],
-    username: "jessjelly",
+    username: "",
     deletedCommentIds: [],
   };
 
   componentDidMount() {
-    const { article_id } = this.props;
+    const { article_id, username } = this.props;
     Promise.all([
       api.fetchArticle(article_id),
       api.fetchComments(article_id),
     ]).then((data) =>
-      this.setState({ article: data[0], comments: data[1], isLoading: false })
+      this.setState({
+        article: data[0],
+        comments: data[1],
+        username: username,
+        isLoading: false,
+      })
     );
   }
 

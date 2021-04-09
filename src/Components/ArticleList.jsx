@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "@reach/router";
 import * as api from "../api";
+import SortBy from "./SortBy";
 
 class ArticleList extends Component {
   state = {
@@ -27,6 +28,12 @@ class ArticleList extends Component {
     }
   }
 
+  setOrder = (sortBy, event) => {
+    console.log(sortBy, this.state);
+    const string = event.target.innerHTML;
+    this.setState({ sortBy, sortByString: string });
+  };
+
   render() {
     const { articles, isLoading, sortByString } = this.state;
     const { topic } = this.props;
@@ -35,45 +42,7 @@ class ArticleList extends Component {
       return (
         <div className="articleList">
           {topic ? <h2>{topic}</h2> : <h2>All Articles</h2>}
-          <ul>
-            <li>Sorted By {sortByString}</li>
-            <li>
-              <button
-                onClick={() => {
-                  this.setState({
-                    sortBy: "comment_count",
-                    sortByString: "Most Comments",
-                  });
-                }}
-              >
-                Most Comments
-              </button>
-            </li>
-            <li>
-              <button
-                onClick={() => {
-                  this.setState({
-                    sortBy: "created_at",
-                    sortByString: "Most Recent",
-                  });
-                }}
-              >
-                Most Recent
-              </button>
-            </li>
-            <li>
-              <button
-                onClick={() => {
-                  this.setState({
-                    sortBy: "votes",
-                    sortByString: "Most Votes",
-                  });
-                }}
-              >
-                Most Votes
-              </button>
-            </li>
-          </ul>
+          <SortBy sortByString={sortByString} setOrder={this.setOrder} />
           <ul className="ArticleList">
             {articles.map((article) => {
               return (
