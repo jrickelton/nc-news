@@ -13,7 +13,6 @@ class FullArticle extends Component {
     isLoading: true,
     comments: [],
     username: "",
-    deletedCommentIds: [],
     commentSortBy: "",
     commentSortByString: "Date",
     err: "",
@@ -61,7 +60,10 @@ class FullArticle extends Component {
 
   removeComment = (commentId) => {
     this.setState((currState) => {
-      return { deletedCommentIds: [commentId, ...currState.deletedCommentIds] };
+      const comments = currState.comments.filter(
+        (comment) => comment.comment_id !== commentId
+      );
+      return { comments };
     });
   };
 
@@ -71,14 +73,7 @@ class FullArticle extends Component {
   };
 
   render() {
-    const {
-      article,
-      isLoading,
-      comments,
-      username,
-      deletedCommentIds,
-      err,
-    } = this.state;
+    const { article, isLoading, comments, username, err } = this.state;
     const {
       title,
       body,
@@ -127,7 +122,6 @@ class FullArticle extends Component {
             comments={comments}
             username={username}
             removeComment={this.removeComment}
-            deletedCommentIds={deletedCommentIds}
           />
         </main>
       );

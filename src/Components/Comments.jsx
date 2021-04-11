@@ -13,35 +13,32 @@ function Comments(props) {
     <div className="Comments">
       <ul>
         {comments.map((comment) => {
-          if (props.deletedCommentIds.some((id) => id === comment.comment_id)) {
-            return null;
-          } else
-            return (
-              <li key={comment.comment_id}>
-                <p>{comment.body}</p>
-                <Link to={`/users/${comment.author}`}>
-                  <p>{comment.author}</p>
-                </Link>
+          return (
+            <li key={comment.comment_id}>
+              <p>{comment.body}</p>
+              <Link to={`/users/${comment.author}`}>
+                <p>{comment.author}</p>
+              </Link>
 
-                <p>Posted: {new Date(comment.created_at).toString()}</p>
-                {comment.author === username ? (
-                  <DeleteComment
-                    author={comment.author}
-                    username={username}
-                    deleteComment={deleteComment}
-                    commentId={comment.comment_id}
-                    removeComment={removeComment}
-                  />
-                ) : null}
-
-                <Votes
-                  votes={comment.votes}
-                  commentId={comment.comment_id}
-                  username={username}
+              <p>Posted: {new Date(comment.created_at).toString()}</p>
+              {comment.author === username ? (
+                <DeleteComment
                   author={comment.author}
+                  username={username}
+                  deleteComment={deleteComment}
+                  commentId={comment.comment_id}
+                  removeComment={removeComment}
                 />
-              </li>
-            );
+              ) : null}
+
+              <Votes
+                votes={comment.votes}
+                commentId={comment.comment_id}
+                username={username}
+                author={comment.author}
+              />
+            </li>
+          );
         })}
       </ul>
     </div>
