@@ -24,13 +24,16 @@ function Comments(props) {
                 </Link>
 
                 <p>Posted: {new Date(comment.created_at).toString()}</p>
-                <DeleteComment
-                  author={comment.author}
-                  username={username}
-                  deleteComment={deleteComment}
-                  commentId={comment.comment_id}
-                  removeComment={removeComment}
-                />
+                {comment.author === username ? (
+                  <DeleteComment
+                    author={comment.author}
+                    username={username}
+                    deleteComment={deleteComment}
+                    commentId={comment.comment_id}
+                    removeComment={removeComment}
+                  />
+                ) : null}
+
                 <Votes
                   votes={comment.votes}
                   commentId={comment.comment_id}
