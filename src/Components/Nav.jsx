@@ -22,7 +22,7 @@ class Nav extends Component {
     if (err) return <p>Error: {err}</p>;
     else
       return (
-        <nav>
+        <nav className="Nav">
           <ul>
             <li>
               <Link to="/">All topics</Link>

@@ -3,7 +3,7 @@ import { Router } from "@reach/router";
 import ArticleList from "./ArticleList";
 import FullArticle from "./FullArticle";
 import Profile from "./Profile";
-import ErrorPage from "./ErrorPage";
+import Error from "./Error";
 
 class Content extends Component {
   render() {
@@ -17,7 +17,7 @@ class Content extends Component {
           />
           <ArticleList path="/:topic" />
           <Profile path="/users/:username" />
-          <ErrorPage default />
+          <Error default />
         </Router>
       </main>
     );

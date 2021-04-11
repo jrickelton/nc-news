@@ -37,7 +37,7 @@ class Votes extends Component {
     if (username === author) return <p>Votes: {votes}</p>;
     else
       return (
-        <div>
+        <div className="Votes">
           <button
             onClick={(event) => {
               this.handleClick(1, event);

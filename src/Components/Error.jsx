@@ -1,12 +1,12 @@
 import React from "react";
 
-const ErrorPage = (props) => {
+const Error = (props) => {
   console.log(props.err);
   return (
-    <div>
+    <div className="Error">
       <p>{props.err.toString()}</p>
     </div>
   );
 };
 
-export default ErrorPage;
+export default Error;

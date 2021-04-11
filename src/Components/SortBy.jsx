@@ -3,7 +3,7 @@ import React from "react";
 const SortBy = (props) => {
   const { sortByString, setSortBy, setOrder, options } = props;
   return (
-    <ul>
+    <ul className="SortBy">
       <li>Sorted By {sortByString}</li>
       {options.map((option) => {
         return (

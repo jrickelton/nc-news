@@ -13,7 +13,7 @@
 }
 
 .Nav {
-  grid-area: header;
+  grid-area: nav;
 }
 
 .Content {
@@ -32,3 +32,18 @@
 .disabled {
   pointer-events: none;
 }
+
+/* 
+Components/Classes:
+- ArticleList
+- CommentForm
+- Comments
+- Content
+- Error
+- Article
+- Header
+- Nav
+- Profile
+- SortBy
+- Votes
+ */

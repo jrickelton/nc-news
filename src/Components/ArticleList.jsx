@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link } from "@reach/router";
 import * as api from "../api";
 import SortBy from "./SortBy";
-import ErrorPage from "./ErrorPage";
+import Error from "./Error";
 
 class ArticleList extends Component {
   state = {
@@ -61,11 +61,11 @@ class ArticleList extends Component {
     const { topic } = this.props;
     const { username } = this.props;
     console.log(err);
-    if (err) return <ErrorPage err={err} />;
+    if (err) return <Error err={err} />;
     if (isLoading) return <p>Loading</p>;
     else
       return (
-        <div className="articleList">
+        <div className="ArticleList">
           {topic ? (
             <h2>{topic}</h2>
           ) : username ? (
@@ -83,7 +83,7 @@ class ArticleList extends Component {
               { query: "comment_count", string: "Comment Count" },
             ]}
           />
-          <ul className="ArticleList">
+          <ul>
             {articles.map((article) => {
               return (
                 <li key={article.article_id} className="ArticleCard">

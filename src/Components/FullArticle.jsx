@@ -4,7 +4,7 @@ import Comments from "./Comments.jsx";
 import CommentForm from "./CommentForm";
 import Votes from "./Votes";
 import SortBy from "./SortBy";
-import ErrorPage from "./ErrorPage";
+import Error from "./Error";
 import * as api from "../api";
 
 class FullArticle extends Component {
@@ -89,7 +89,7 @@ class FullArticle extends Component {
       article_id,
     } = article;
     if (isLoading) return <p>Loading...</p>;
-    if (err) return <ErrorPage err={err} />;
+    if (err) return <Error err={err} />;
     else
       return (
         <main>

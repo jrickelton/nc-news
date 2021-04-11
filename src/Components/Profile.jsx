@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import * as api from "../api";
 import ArticleList from "./ArticleList";
-import ErrorPage from "./ErrorPage";
+import Error from "./Error";
 
 class Profile extends Component {
   state = {
@@ -29,10 +29,10 @@ class Profile extends Component {
   render() {
     const { username, avatar_url, name, isLoading, err } = this.state;
     if (isLoading) return <p>Loading...</p>;
-    if (err) return <ErrorPage err={err} />;
+    if (err) return <Error err={err} />;
     else
       return (
-        <div>
+        <div className="Profile">
           <h2>{username}</h2>
           <p>{name}</p>
           <img src={avatar_url} alt={`${username}'s avatar`} />
