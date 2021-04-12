@@ -3,6 +3,7 @@ import { Link } from "@reach/router";
 import * as api from "../api";
 import SortBy from "./SortBy";
 import Error from "./Error";
+import Avatar from "./Avatar";
 
 class ArticleList extends Component {
   state = {
@@ -93,12 +94,10 @@ class ArticleList extends Component {
                     </Link>
                   </h2>
                   <p>{article.body}</p>
-                  <p>
-                    Posted by:{" "}
-                    <Link to={`/users/${article.author}`}>
-                      {article.author}
-                    </Link>
-                  </p>
+
+                  <Avatar username={article.author} />
+                  <Link to={`/users/${article.author}`}>{article.author}</Link>
+
                   <p>Votes: {article.votes}</p>
                   <p>Comments: {article.comment_count}</p>
                   <p>Posted: {new Date(article.created_at).toString()}</p>

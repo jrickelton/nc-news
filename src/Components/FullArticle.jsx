@@ -5,6 +5,7 @@ import CommentForm from "./CommentForm";
 import Votes from "./Votes";
 import SortBy from "./SortBy";
 import Error from "./Error";
+import Avatar from "./Avatar";
 import * as api from "../api";
 
 class FullArticle extends Component {
@@ -91,9 +92,10 @@ class FullArticle extends Component {
           <div className="Article">
             <h2>{title}</h2>
             <p>{body}</p>
-            <p>
-              Posted by: <Link to={`/users/${author}`}>{author}</Link>
-            </p>
+
+            <Avatar username={author} />
+            <Link to={`/users/${author}`}>{author}</Link>
+
             <p>Comments: {comment_count}</p>
             <p>Posted: {new Date(created_at).toString()}</p>
           </div>

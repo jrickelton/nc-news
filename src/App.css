@@ -40,9 +40,14 @@
   pointer-events: none;
 }
 
+.Avatar {
+  height: 50px;
+}
+
 /* 
 Components/Classes:
 - ArticleList
+- Avatar
 - CommentForm
 - Comments
 - Content

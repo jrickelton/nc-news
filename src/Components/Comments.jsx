@@ -1,6 +1,7 @@
 import React from "react";
 import DeleteComment from "./DeleteComment";
 import Votes from "./Votes";
+import Avatar from "./Avatar";
 import { Link } from "@reach/router";
 
 function Comments(props) {
@@ -16,6 +17,7 @@ function Comments(props) {
           return (
             <li key={comment.comment_id}>
               <p>{comment.body}</p>
+              <Avatar username={comment.author} />
               <Link to={`/users/${comment.author}`}>
                 <p>{comment.author}</p>
               </Link>
