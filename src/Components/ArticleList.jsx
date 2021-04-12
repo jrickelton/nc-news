@@ -93,7 +93,16 @@ class ArticleList extends Component {
                       {article.title}
                     </Link>
                   </h2>
-                  <p>{article.body}</p>
+                  <p>
+                    {article.body.slice(
+                      0,
+                      article.body.slice(0, 300).lastIndexOf(" ")
+                    )}
+                    ...{" "}
+                    <Link to={`/articles/${article.article_id}`}>
+                      Read more
+                    </Link>
+                  </p>
 
                   <Avatar username={article.author} />
                   <Link to={`/users/${article.author}`}>{article.author}</Link>
