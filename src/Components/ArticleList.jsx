@@ -37,6 +37,7 @@ class ArticleList extends Component {
     ) {
       const { topic } = this.props;
       const { sortBy, order } = this.state;
+      this.setState({ isLoading: true });
       api
         .fetchArticles(topic, sortBy, order)
         .then((articles) => {
@@ -57,11 +58,14 @@ class ArticleList extends Component {
     this.setState({ order });
   };
 
+  setLoading = () => {
+    this.setState({ isLoading: true });
+  };
+
   render() {
     const { articles, isLoading, sortByString, err } = this.state;
     const { topic } = this.props;
     const { username } = this.props;
-    console.log(err);
     if (err) return <Error err={err} />;
     if (isLoading) return <p>Loading</p>;
     else
@@ -83,6 +87,7 @@ class ArticleList extends Component {
               { query: "votes", string: "Votes" },
               { query: "comment_count", string: "Comment Count" },
             ]}
+            onClick={this.setLoading}
           />
           <ul>
             {articles.map((article) => {
