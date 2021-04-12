@@ -32,7 +32,7 @@ class CommentForm extends Component {
     const { postErrorMsg } = this.state;
     return (
       <form className="CommentForm" onSubmit={this.handleSubmit}>
-        <label htmlFor="PostComment">Post Comment</label>
+        <label htmlFor="comment">Post Comment</label>
         <br />
         <input type="text" id="comment" onChange={this.handleChange}></input>
         <br />
