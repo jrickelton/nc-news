@@ -1,14 +1,21 @@
 .App {
   display: grid;
-  grid-template-columns: 20% auto;
+  grid-template-columns: auto;
   grid-template-areas:
-    "header header"
-    "nav content";
+    "header"
+    "nav"
+    "content";
+}
+
+@media only screen and (min-width: 768px) {
+  .App {
+    grid-template-columns: 20% auto;
+    grid-template-areas: "header header" "nav content";
+  }
 }
 
 .Header {
   grid-area: header;
-
   text-align: center;
 }
 
