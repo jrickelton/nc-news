@@ -1,3 +1,4 @@
+import "./App.scss";
 import "./App.css";
 import Header from "./Components/Header";
 import Nav from "./Components/Nav";
@@ -14,7 +15,9 @@ class App extends Component {
     return (
       <div className="App">
         <Header username={this.state.username} />
+
         <Nav />
+
         <Content username={this.state.username} />
       </div>
     );
