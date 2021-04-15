@@ -89,36 +89,54 @@ class ArticleList extends Component {
             ]}
             onClick={this.setLoading}
           />
-          <ul>
+          <div className="cards is-flex">
             {articles.map((article) => {
               return (
-                <li key={article.article_id} className="ArticleCard">
-                  <h2>
-                    <Link to={`/articles/${article.article_id}`}>
-                      {article.title}
-                    </Link>
-                  </h2>
-                  <p>
-                    {article.body.slice(
-                      0,
-                      article.body.slice(0, 300).lastIndexOf(" ")
-                    )}
-                    ...{" "}
-                    <Link to={`/articles/${article.article_id}`}>
-                      Read more
-                    </Link>
-                  </p>
+                <div className="card">
+                  <div className="card-content">
+                    <div className="media">
+                      <div className="media-left">
+                        <figure className="image is-48x48">
+                          <Avatar username={article.author} />
+                        </figure>
+                      </div>
+                      <div className="media-content">
+                        <p className="title is-4">
+                          <Link to={`/articles/${article.article_id}`}>
+                            {article.title}
+                          </Link>
+                        </p>
+                        <p className="subtitle is-6">
+                          <Link to={`/users/${article.author}`}>
+                            @{article.author}
+                          </Link>
+                        </p>
+                      </div>
+                    </div>
 
-                  <Avatar username={article.author} />
-                  <Link to={`/users/${article.author}`}>{article.author}</Link>
-
-                  <p>Votes: {article.votes}</p>
-                  <p>Comments: {article.comment_count}</p>
-                  <p>Posted: {new Date(article.created_at).toString()}</p>
-                </li>
+                    <div className="content">
+                      {article.body.slice(
+                        0,
+                        article.body.slice(0, 300).lastIndexOf(" ")
+                      )}
+                      ...{" "}
+                      <Link to={`/articles/${article.article_id}`}>
+                        Read more
+                      </Link>
+                      <br />
+                      {new Date(article.created_at).toString()}
+                    </div>
+                  </div>
+                  <footer className="card-footer">
+                    <p className="card-footer-item">Votes: {article.votes}</p>
+                    <p className="card-footer-item">
+                      Comments: {article.comment_count}
+                    </p>
+                  </footer>
+                </div>
               );
             })}
-          </ul>
+          </div>
         </div>
       );
   }
